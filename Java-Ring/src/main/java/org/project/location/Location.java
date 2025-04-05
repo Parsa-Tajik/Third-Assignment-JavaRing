@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 public class Location {
     private String name;
-
     private ArrayList<Enemy> enemies;
+
+    public boolean isPlayerOn = false;
 
     public Location(String name, ArrayList<Enemy> enemies) {
         this.name = name;
@@ -35,7 +36,10 @@ public class Location {
         String enemiesString = "";
         int count = 1;
         for (Enemy enemy : enemies) {
-            enemiesString += count + ". " + enemy.toString() + "\n";
+            enemiesString += count + ". " + enemy.toString();
+            if (count != enemies.size()) {
+                enemiesString += "\n";
+            }
             count++;
         }
 

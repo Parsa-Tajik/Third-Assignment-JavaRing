@@ -1,9 +1,10 @@
 package org.project.entity.enemies;
 
 import org.project.object.weapons.Weapon;
+import org.project.entity.Entity;
 
 // TODO: UPDATE IMPLEMENTATION
-public abstract class Enemy {
+public abstract class Enemy implements Entity {
     Weapon weapon;
     private int hp;
     private int mp;
@@ -31,5 +32,9 @@ public abstract class Enemy {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public String toString() {
+        return "Unknown Enemy!";
     }
 }

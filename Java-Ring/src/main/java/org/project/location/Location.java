@@ -9,8 +9,9 @@ public class Location {
 
     private ArrayList<Enemy> enemies;
 
-    public Location(ArrayList<Location> locations, ArrayList<Enemy> enemies) {
-        this.locations = locations;
+    public Location(String name, ArrayList<Enemy> enemies) {
+        this.name = name;
+        //this.locations = locations;
         this.enemies = enemies;
     }
 
@@ -22,11 +23,22 @@ public class Location {
         return name;
     }
 
-    public ArrayList<Location> getLocations() {
-        return locations;
-    }
+    //public ArrayList<Location> getLocations() {
+        //return locations;
+    //}
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public String toString() {
+        String enemiesString = "";
+        int count = 1;
+        for (Enemy enemy : enemies) {
+            enemiesString += count + ". " + enemy.toString() + "\n";
+            count++;
+        }
+
+        return "Location: " + name + "\n" + enemiesString;
     }
 }

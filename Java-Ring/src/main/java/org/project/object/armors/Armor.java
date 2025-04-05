@@ -9,23 +9,14 @@ public abstract class Armor implements Object {
     private int durability;
     private int maxDurability;
 
-    private boolean isBroke;
-
-    public Armor(int defense, int durability) {
-        this.defense = defense;
-        this.durability = durability;
+    public Armor(int maxDefense, int maxDurability) {
+        this.defense = maxDefense;
+        this.maxDefense = maxDurability;
+        this.durability = maxDurability;
+        this.maxDurability = maxDurability;
     }
 
-    public void checkBreak() {
-        if (durability <= 0) {
-            isBroke = true;
-            defense = 0;
-        }
-    }
-
-    // TODO: (BONUS) UPDATE THE REPAIR METHOD
     public void repair() {
-        isBroke = false;
         defense = maxDefense;
         durability = maxDurability;
     }
@@ -39,6 +30,10 @@ public abstract class Armor implements Object {
     }
 
     public boolean isBroke() {
-        return isBroke;
+        if (durability <= 0) {
+            defense = 0;
+            return true;
+        }
+        return false;
     }
 }

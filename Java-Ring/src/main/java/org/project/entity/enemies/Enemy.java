@@ -6,8 +6,8 @@ import org.project.entity.Entity;
 // TODO: UPDATE IMPLEMENTATION
 public abstract class Enemy implements Entity {
     Weapon weapon;
-    private int hp;
-    private int mp;
+    protected int hp;
+    protected int mp;
 
     public Enemy(int hp, int mp, Weapon weapon) {
         this.hp = hp;

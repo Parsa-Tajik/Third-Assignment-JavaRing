@@ -16,9 +16,10 @@ public abstract class Player implements Entity {
     private int mp;
     private int maxMP;
 
-    public Player(String name, int hp, int mp, Weapon weapon, Armor armor) {
+    public Player(String name, int hp, int maxHp, int mp, Weapon weapon, Armor armor) {
         this.name = name;
         this.hp = hp;
+        this.maxHP = maxHp;
         this.mp = mp;
 
         this.weapon = weapon;

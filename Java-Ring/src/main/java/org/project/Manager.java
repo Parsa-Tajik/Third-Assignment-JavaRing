@@ -2,6 +2,8 @@ package org.project;
 
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
+import org.project.entity.players.Player;
+import org.project.entity.players.Knight;
 import org.project.location.Location;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.Scanner;
 public class Manager {
 
     private static List<Location> locations = new ArrayList<>();
+    public static Player player;
+    private static Location currentLocation;
 
     public static void playGame(int level) {
 
@@ -33,7 +37,8 @@ public class Manager {
             int choice = getIntInput(1, 2);
 
             if (choice == 1) {
-                // attack
+                player.attack(currentLocation.getEnemies().get(0));
+                System.out.println(currentLocation.getEnemies().get(0).getHp());
             }else {
                 changeLocation();
             }
@@ -53,6 +58,7 @@ public class Manager {
             location.isPlayerOn = false;
         }
         locations.get(choice - 1).isPlayerOn = true;
+        currentLocation = locations.get(choice - 1);
     }
 
     private static void createGame(int locCount) {
@@ -64,6 +70,7 @@ public class Manager {
         }
 
         locations.getFirst().isPlayerOn = true;
+        currentLocation = locations.getFirst();
     }
 
     private static Enemy createRandomMonster() {

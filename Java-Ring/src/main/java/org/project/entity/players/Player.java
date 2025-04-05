@@ -4,6 +4,8 @@ import org.project.entity.Entity;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
+import java.util.Scanner;
+
 // TODO: UPDATE IMPLEMENTATION
 public abstract class Player implements Entity {
     protected String name;
@@ -31,6 +33,11 @@ public abstract class Player implements Entity {
     @Override
     public void defend() {
         // TODO: (BONUS) IMPLEMENT A DEFENSE METHOD FOR SHIELDS
+    }
+
+    @Override
+    public boolean isAlive() {
+        return hp > 0;
     }
 
     // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE

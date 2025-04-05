@@ -13,7 +13,7 @@ public class Sword extends Weapon {
     int abilityCharge;
 
     public Sword() {
-    super(100, 10);
+    super(30, 10);
     }
 
     // TODO: (BONUS) UPDATE THE UNIQUE ABILITY

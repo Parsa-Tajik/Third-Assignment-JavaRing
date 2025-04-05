@@ -9,6 +9,8 @@ public interface Entity {
 
     void fillMana(int mana);
 
+    boolean isAlive();
+
     void takeDamage(int damage);
 
     int getMaxHP();

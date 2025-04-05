@@ -15,9 +15,6 @@ public class Skeleton extends Enemy {
     public void defend() {
 
     }
-    public void takeDamage(int damage) {
-
-    }
     public int getMaxHP() {
         return 0;
     }
@@ -36,7 +33,7 @@ public class Skeleton extends Enemy {
 
     public String toString()
     {
-        return "Skeleton💀";
+        return "Skeleton💀" + " (" + this.getHp() + ")";
     }
 
 }

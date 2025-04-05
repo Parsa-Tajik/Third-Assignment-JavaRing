@@ -16,10 +16,14 @@ public abstract class Enemy implements Entity {
         this.weapon = weapon;
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
     @Override
     public void takeDamage(int damage) {
         hp -= damage;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return hp > 0;
     }
 
     public int getHp() {

@@ -19,6 +19,9 @@ public abstract class Enemy implements Entity {
     @Override
     public void takeDamage(int damage) {
         hp -= damage;
+        if (hp < 0) {
+            hp = 0;
+        }
     }
 
     @Override

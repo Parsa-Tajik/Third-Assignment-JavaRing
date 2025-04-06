@@ -1,5 +1,6 @@
 package org.project;
 
+import org.project.entity.Entity;
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
@@ -32,13 +33,18 @@ public class Manager {
                 System.out.println();
             }
 
-            System.out.println("Enter 1 to attack.");
-            System.out.println("Enter 2 to move to another location.");
+            System.out.println("Enter 1 To Attack.");
+            System.out.println("Enter 2 To Move To Another Location.");
             int choice = getIntInput(1, 2);
 
             if (choice == 1) {
-                player.attack(currentLocation.getEnemies().get(0));
-                System.out.println(currentLocation.getEnemies().get(0).getHp());
+                Entity target = currentLocation.getEnemies().get(0);
+                player.attack(target);
+                if (!target.isAlive()) {
+                    currentLocation.getEnemies().remove(target);
+                    System.out.println("Congrats, This Location Is Clear. Now Move To Your Next Destination:");
+                    changeLocation();
+                }
             }else {
                 changeLocation();
             }
@@ -48,17 +54,20 @@ public class Manager {
     private static void changeLocation() {
         Scanner sc = new Scanner(System.in);
         System.out.println("enter the location you wish to move to");
-        int choice = getIntInput(1, locations.size());
-        while (locations.get(choice - 1).isPlayerOn) {
-            System.out.println("this is your current location, choose another one");
-            choice = getIntInput(1, locations.size());
+        Location choosedLocation = locations.get(getIntInput(1, locations.size()) - 1);
+        while (choosedLocation.isPlayerOn || choosedLocation.isClear()) {
+            if (choosedLocation.isPlayerOn) {
+                System.out.println("This Is Your Current Location. Move To Another One.");
+            } else {
+                System.out.println("This Location Is Clear. Move To Another One.");
+            }
+
+            choosedLocation = locations.get(getIntInput(1, locations.size()) - 1);
         }
 
-        for (Location location : locations) {
-            location.isPlayerOn = false;
-        }
-        locations.get(choice - 1).isPlayerOn = true;
-        currentLocation = locations.get(choice - 1);
+        currentLocation.isPlayerOn = false;
+        choosedLocation.isPlayerOn = true;
+        currentLocation = choosedLocation;
     }
 
     private static void createGame(int locCount) {
@@ -81,7 +90,7 @@ public class Manager {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         while (choice < min || choice > max) {
-            System.out.println("invalid input");
+            System.out.println("Out Of Range");
             choice = sc.nextInt();
         }
         return choice;

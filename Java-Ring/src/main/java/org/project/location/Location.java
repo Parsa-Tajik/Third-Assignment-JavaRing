@@ -32,8 +32,17 @@ public class Location {
         return enemies;
     }
 
+    public boolean isClear() {
+        return enemies.isEmpty();
+    }
+
     public String toString() {
         String enemiesString = "";
+
+        if (isClear()) {
+            return "Location: " + name + "\n" + "Clear";
+        }
+
         int count = 1;
         for (Enemy enemy : enemies) {
             enemiesString += count + ". " + enemy.toString();

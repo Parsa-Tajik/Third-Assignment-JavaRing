@@ -13,6 +13,8 @@ public interface Entity {
 
     void takeDamage(int damage);
 
+    int getHp();
+
     int getMaxHP();
 
     int getMaxMP();

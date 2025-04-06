@@ -1,5 +1,6 @@
 package org.project.object.armors;
 
+import org.project.Manager;
 import org.project.entity.Entity;
 import org.project.object.Object;
 
@@ -13,7 +14,7 @@ public abstract class Armor implements Object {
     public Armor(int maxDefense, int maxDurability, int repairPrice) {
         this.defense = maxDefense;
         this.maxDefence = maxDefense;
-        this.durability = maxDurability;
+        this.durability = 10;
         this.maxDurability = maxDurability;
         this.repairPrice = repairPrice;
     }
@@ -33,6 +34,11 @@ public abstract class Armor implements Object {
 
     public int getDurability() {
         return durability;
+    }
+    public int getMaxDurability() { return maxDurability; }
+
+    public int getDurabilityPercentage() {
+        return (int)(((double)durability / maxDurability) * 100);
     }
 
     public int getRepairPrice() {

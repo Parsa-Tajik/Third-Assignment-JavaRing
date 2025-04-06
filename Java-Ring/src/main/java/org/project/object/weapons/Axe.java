@@ -6,19 +6,16 @@ import java.util.ArrayList;
 
 public class Axe extends Weapon {
 
-    private static int price = 300;
+    public static int price() {return 300;};
+    public static String name() {return "Axe";}
 
     public Axe() {
-    super(50, 40);
+    super(name(), 50, price(), 40);
     }
 
     public void uniqueAbility(ArrayList<Entity> targets) {
         for (Entity target : targets) {
             target.takeDamage(getDamage());
         }
-    }
-
-    public static int getPrice() {
-        return price;
     }
 }

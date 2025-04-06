@@ -4,11 +4,15 @@ import org.project.entity.Entity;
 import org.project.object.Object;
 
 public abstract class Weapon implements Object {
+    private String name;
     private int damage;
+    private int price;
     private int abilityPrice;
 
-    public Weapon(int damage, int abilityPrice) {
+    public Weapon(String name, int damage, int price, int abilityPrice) {
+        this.name = name;
         this.damage = damage;
+        this.price = price;
         this.abilityPrice = abilityPrice;
     }
 
@@ -22,5 +26,13 @@ public abstract class Weapon implements Object {
     }
     public int getAbilityCost() {
         return abilityPrice;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

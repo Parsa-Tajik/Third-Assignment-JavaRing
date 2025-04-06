@@ -31,7 +31,7 @@ public class Main {
         Player player;
         switch (heroChoice) {
             case 1:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
+                player = new Knight(playerName, 50, 100, new Sword(), new KnightArmor());
                 break;
             case 2:
                 player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());

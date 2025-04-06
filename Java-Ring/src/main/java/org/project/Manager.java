@@ -34,7 +34,8 @@ public class Manager {
 
             System.out.println("Enter 1 To Attack.");
             System.out.println("Enter 2 To Move To Another Location.");
-            int choice = getIntInput(1, 2);
+            System.out.println("Enter 3 To Open Inventory.");
+            int choice = getIntInput(1, 3);
 
             if (choice == 1) {
                 Entity target = currentLocation.getEnemies().get(0);
@@ -44,8 +45,10 @@ public class Manager {
                     System.out.println("Congrats, This Location Is Clear. Now Move To Your Next Destination:");
                     changeLocation();
                 }
-            }else {
+            }else if (choice == 2) {
                 changeLocation();
+            }else {
+                Inventory.inventory();
             }
         }
     }
@@ -85,7 +88,7 @@ public class Manager {
         return new Skeleton();
     }
 
-    private static int getIntInput(int min, int max) {
+    public static int getIntInput(int min, int max) {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         while (choice < min || choice > max) {

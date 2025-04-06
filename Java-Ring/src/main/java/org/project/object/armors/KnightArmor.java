@@ -6,4 +6,8 @@ public class KnightArmor extends Armor {
     public KnightArmor () {
         super(5, 20, 100);
     }
+
+    public String toString() {
+        return "Knight Armor";
+    }
 }

@@ -6,7 +6,6 @@ import org.project.object.weapons.Weapon;
 
 import java.util.Scanner;
 
-// TODO: UPDATE IMPLEMENTATION
 public abstract class Player implements Entity {
     protected String name;
     Weapon weapon;
@@ -33,7 +32,7 @@ public abstract class Player implements Entity {
 
     @Override
     public void defend() {
-        // TODO: (BONUS) IMPLEMENT A DEFENSE METHOD FOR SHIELDS
+
     }
 
     @Override
@@ -41,7 +40,6 @@ public abstract class Player implements Entity {
         return hp > 0;
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
     @Override
     public void takeDamage(int damage) {
         hp -= damage - armor.getDefense();
@@ -63,6 +61,9 @@ public abstract class Player implements Entity {
         }
     }
 
+    public void changeWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
 
     public String getName() {
         return name;
@@ -93,5 +94,4 @@ public abstract class Player implements Entity {
     public Armor getArmor() {
         return armor;
     }
-
 }

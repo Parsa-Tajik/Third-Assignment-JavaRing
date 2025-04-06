@@ -4,12 +4,12 @@ import org.project.entity.Entity;
 
 import java.util.ArrayList;
 
-public class Sword extends Weapon {
+public class Axe extends Weapon {
 
-    private static int price = 0;
+    private static int price = 300;
 
-    public Sword() {
-    super(30, 20);
+    public Axe() {
+    super(50, 40);
     }
 
     public void uniqueAbility(ArrayList<Entity> targets) {

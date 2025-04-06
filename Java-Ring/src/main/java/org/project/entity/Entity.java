@@ -16,8 +16,4 @@ public interface Entity {
     int getMaxHP();
 
     int getMaxMP();
-
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS METHODS
-    */
 }

@@ -3,7 +3,6 @@ package org.project.entity.enemies;
 import org.project.entity.Entity;
 import org.project.object.weapons.Sword;
 
-// TODO: UPDATE IMPLEMENTATION
 public class Skeleton extends Enemy {
     public boolean isDeadOnce = false;
 

@@ -4,7 +4,6 @@ import org.project.entity.Entity;
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Player;
-import org.project.entity.players.Knight;
 import org.project.location.Location;
 
 import java.util.ArrayList;

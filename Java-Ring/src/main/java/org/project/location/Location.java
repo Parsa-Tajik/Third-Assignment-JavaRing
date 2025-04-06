@@ -16,17 +16,9 @@ public class Location {
         this.enemies = enemies;
     }
 
-    /*
-    TODO: (BONUS) RESET EACH LOCATION AFTER PLAYER LEAVES
-    */
-
     public String getName() {
         return name;
     }
-
-    //public ArrayList<Location> getLocations() {
-        //return locations;
-    //}
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;

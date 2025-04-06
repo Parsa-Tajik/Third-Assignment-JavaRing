@@ -3,18 +3,13 @@ package org.project.object.weapons;
 import org.project.entity.Entity;
 import org.project.object.Object;
 
-// TODO: UPDATE IMPLEMENTATION
 public abstract class Weapon implements Object {
     private int damage;
-    private int manaCost;
+    private int abilityPrice;
 
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS ATTRIBUTES
-    */
-
-    public Weapon(int damage, int manaCost) {
+    public Weapon(int damage, int abilityPrice) {
         this.damage = damage;
-        this.manaCost = manaCost;
+        this.abilityPrice = abilityPrice;
     }
 
     @Override
@@ -25,12 +20,7 @@ public abstract class Weapon implements Object {
     public int getDamage() {
         return damage;
     }
-
-    public int getManaCost() {
-        return manaCost;
+    public int getAbilityCost() {
+        return abilityPrice;
     }
-
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS METHODS
-    */
 }

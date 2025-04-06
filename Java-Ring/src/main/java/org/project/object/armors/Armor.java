@@ -1,24 +1,30 @@
 package org.project.object.armors;
 
+import org.project.entity.Entity;
 import org.project.object.Object;
 
-// TODO: UPDATE IMPLEMENTATION
 public abstract class Armor implements Object {
     private int defense;
-    private int maxDefense;
+    private int maxDefence;
     private int durability;
     private int maxDurability;
+    private int repairPrice;
 
-    public Armor(int maxDefense, int maxDurability) {
+    public Armor(int maxDefense, int maxDurability, int repairPrice) {
         this.defense = maxDefense;
-        this.maxDefense = maxDurability;
+        this.maxDefence = maxDefense;
         this.durability = maxDurability;
         this.maxDurability = maxDurability;
+        this.repairPrice = repairPrice;
     }
 
     public void repair() {
-        defense = maxDefense;
+        defense = maxDefence;
         durability = maxDurability;
+    }
+
+    public void use(Entity target) {
+
     }
 
     public int getDefense() {
@@ -27,6 +33,10 @@ public abstract class Armor implements Object {
 
     public int getDurability() {
         return durability;
+    }
+
+    public int getRepairPrice() {
+        return repairPrice;
     }
 
     public boolean isBroke() {

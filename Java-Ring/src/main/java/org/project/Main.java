@@ -1,15 +1,10 @@
 package org.project;
 
-import org.project.entity.enemies.Enemy;
-import org.project.entity.enemies.Skeleton;
 import org.project.entity.players.Knight;
 import org.project.entity.players.Player;
-import org.project.location.Location;
 import org.project.object.armors.KnightArmor;
 import org.project.object.weapons.Sword;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -36,20 +31,20 @@ public class Main {
         Player player;
         switch (heroChoice) {
             case 1:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor(20, 3));
+                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
                 break;
             case 2:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor(20, 3));
+                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
                 break;
             case 3:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor(20, 3));
+                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
                 break;
             case 4:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor(20, 3));
+                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
                 break;
 
             default:
-                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor(20, 3));
+                player = new Knight(playerName, 100, 100, new Sword(), new KnightArmor());
                 break;
         }
         Manager.player = player;

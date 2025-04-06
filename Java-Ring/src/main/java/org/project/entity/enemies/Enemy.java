@@ -3,7 +3,6 @@ package org.project.entity.enemies;
 import org.project.object.weapons.Weapon;
 import org.project.entity.Entity;
 
-// TODO: UPDATE IMPLEMENTATION
 public abstract class Enemy implements Entity {
     Weapon weapon;
     protected int hp;

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Player implements Entity {
-    protected String name;
     Weapon weapon;
     Armor armor;
     private int hp;
@@ -23,8 +22,7 @@ public abstract class Player implements Entity {
     public List<Armor> armors = new ArrayList<>();
     public List<Consumable> consumables = new ArrayList<>();
 
-    public Player(String name, int hp, int maxHp, int mp, Weapon weapon, Armor armor) {
-        this.name = name;
+    public Player(int hp, int maxHp, int mp, Weapon weapon, Armor armor) {
         this.hp = hp;
         this.maxHP = maxHp;
         this.mp = mp;
@@ -37,7 +35,11 @@ public abstract class Player implements Entity {
 
     @Override
     public void attack(Entity target) {
+        int preHp = target.getHp();
         target.takeDamage(weapon.getDamage());
+        System.out.println("You Attacked " + target);
+        System.out.println(target + " Took " + (preHp - target.getHp()) + " Damage.");
+        System.out.println();
     }
 
     @Override
@@ -52,7 +54,15 @@ public abstract class Player implements Entity {
 
     @Override
     public void takeDamage(int damage) {
-        hp -= damage - armor.getDefense();
+        int finalDamage;
+        if (hp >= 0) {
+            finalDamage = damage;
+        }else {
+            finalDamage = hp;
+        }
+
+        hp -= finalDamage;
+        armor.use(this, finalDamage);
     }
 
     @Override
@@ -73,10 +83,6 @@ public abstract class Player implements Entity {
 
     public void changeWeapon(Weapon weapon) {
         this.weapon = weapon;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getHp() {

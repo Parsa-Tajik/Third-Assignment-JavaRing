@@ -16,11 +16,6 @@ public abstract class Weapon implements Object {
         this.abilityPrice = abilityPrice;
     }
 
-    @Override
-    public void use(Entity target) {
-        target.takeDamage(damage);
-    }
-
     public int getDamage() {
         return damage;
     }

@@ -17,10 +17,11 @@ public class Manager {
     private static Location currentLocation;
 
     public static void playGame(int level) {
-
+        System.out.println("**ROUND " + level + "**\n");
         createGame(level);
+        boolean roundDone = false;
+        while(!roundDone) {
 
-        while(true) {
             for (Location location : locations) {
                 if (location.isPlayerOn) {
                     System.out.println("**********");
@@ -32,28 +33,79 @@ public class Manager {
                 System.out.println();
             }
 
-            System.out.println("Enter 1 To Attack.");
-            System.out.println("Enter 2 To Move To Another Location.");
-            System.out.println("Enter 3 To Open Inventory.");
-            int choice = getIntInput(1, 3);
+            playerTurn();
 
-            if (choice == 1) {
-                Entity target = currentLocation.getEnemies().get(0);
-                player.attack(target);
-                if (!target.isAlive()) {
-                    currentLocation.getEnemies().remove(target);
-                    System.out.println("Congrats, This Location Is Clear. Now Move To Your Next Destination:");
-                    changeLocation();
-                }
-            }else if (choice == 2) {
-                changeLocation();
-            }else {
-                Inventory.inventory();
+            // checks if the player is alive
+            if (!player.isAlive()) {
+                System.out.println("Oh, What A Shame! You are dead!");
+                System.out.println("You've Done It Until Level " + (level - 1));
+                System.out.println();
+                roundDone = true;
+                Main.die();
             }
+
+            // checks if all locations are clear
+            boolean allLocsClear = true;
+            for (Location location : locations) {
+                if (!location.isClear()){
+                    allLocsClear = false;
+                }
+            }
+            if (allLocsClear) { roundDone = true; }
         }
     }
 
+    private static void playerTurn() {
+        System.out.println("HP: " + player.getHp());
+        System.out.println("Armor Durability: " + player.getArmor().getDurabilityPercentage() + "%");
+        System.out.println();
+        System.out.println("Enter 1 To Attack.");
+        System.out.println("Enter 2 To Move To Another Location.");
+        System.out.println("Enter 3 To Open Inventory.");
+        int choice = getIntInput(1, 3);
+
+        if (choice == 1) {
+            Entity target = currentLocation.getEnemies().get(0);
+            player.attack(target);
+            if (!target.isAlive()) {
+                currentLocation.getEnemies().remove(target);
+                System.out.println("Congrats, This Location Is Clear.");
+                changeLocation();
+            }else {
+                enemyTurn();
+            }
+        }else if (choice == 2) {
+            changeLocation();
+        }else {
+            Inventory.inventory();
+        }
+    }
+
+    private static void enemyTurn() {
+        if (currentLocation.getEnemies().isEmpty()) {
+            return;
+        }
+        int playerPreHp = player.getHp();
+        currentLocation.getEnemies().get(0).attack(player);
+        int damage = playerPreHp - player.getHp();
+        System.out.println(currentLocation.getEnemies().get(0) + " Attacked You On Location " + currentLocation.getName() + "!");
+        System.out.println("You Took " + damage + " Damage");
+        System.out.println();
+    }
+
     private static void changeLocation() {
+        // checks whether there is any available locations to move to
+        int availableLocations = 0;
+        for (Location location : locations) {
+            if (!location.isPlayerOn && !location.isClear()) {
+                availableLocations++;
+            }
+        }
+        if (availableLocations == 0) {
+            System.out.println("No Available Locations!\n");
+            return;
+        }
+
         Scanner sc = new Scanner(System.in);
         System.out.println("enter the location you wish to move to");
         Location choosedLocation = locations.get(getIntInput(1, locations.size()) - 1);
@@ -70,9 +122,15 @@ public class Manager {
         currentLocation.isPlayerOn = false;
         choosedLocation.isPlayerOn = true;
         currentLocation = choosedLocation;
+
+        enemyTurn();
     }
 
     private static void createGame(int locCount) {
+        // clears all locations in the list from previous rounds
+        locations.clear();
+        locations = new ArrayList<>();
+
         for (int i = 0; i < locCount; i++) {
             ArrayList<Enemy> enemies = new ArrayList<>();
             enemies.add(createRandomMonster());

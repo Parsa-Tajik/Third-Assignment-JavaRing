@@ -24,8 +24,21 @@ public abstract class Armor implements Object {
         durability = maxDurability;
     }
 
-    public void use(Entity target) {
+    public void use(Entity target, int damage) {
+        if (isBroke()) {
+            return;
+        }
 
+        int healHp = (int)(damage * ((double)defense / 100));
+
+        if (durability < healHp) {
+            target.heal(durability);
+            durability = 0;
+            return;
+        }
+
+        target.heal(healHp);
+        durability -= healHp;
     }
 
     public int getDefense() {
@@ -39,6 +52,10 @@ public abstract class Armor implements Object {
 
     public int getDurabilityPercentage() {
         return (int)(((double)durability / maxDurability) * 100);
+    }
+
+    public void reduceDurability() {
+        durability -= defense;
     }
 
     public int getRepairPrice() {

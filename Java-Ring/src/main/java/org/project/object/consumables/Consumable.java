@@ -12,6 +12,8 @@ public abstract class Consumable implements Object {
         this.price = price;
     }
 
+    public abstract void use(Entity target);
+
     public String getName() {
         return name;
     }

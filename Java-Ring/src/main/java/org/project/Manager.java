@@ -5,6 +5,8 @@ import org.project.entity.enemies.Dragon;
 import org.project.entity.enemies.Enemy;
 import org.project.entity.enemies.Goblin;
 import org.project.entity.enemies.Skeleton;
+import org.project.entity.players.Assassin;
+import org.project.entity.players.Glitcher;
 import org.project.entity.players.Player;
 import org.project.location.Location;
 
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Manager {
 
@@ -24,6 +27,8 @@ public class Manager {
 
     public static void playGame(int l) {
         level = l;
+        System.out.println("Loading Game...\n\n");
+        wait(2000);
 
         System.out.println("**ROUND " + level + "**\n");
         createGame(level);
@@ -59,7 +64,15 @@ public class Manager {
                     allLocsClear = false;
                 }
             }
-            if (allLocsClear) { roundDone = true; }
+            if (allLocsClear) {
+                int rewardCoins = level * 50;
+                player.addCoins(rewardCoins);
+                System.out.println("Congrats! You Earned " + rewardCoins + " Coins For Clearing All Locations At Round " + level);
+                System.out.println("Be Ready To Fight In The Next Round.");
+                System.out.println();
+                wait(2000);
+                roundDone = true;
+            }
         }
     }
 
@@ -68,6 +81,7 @@ public class Manager {
 
         System.out.println("HP: " + player.getHp());
         System.out.println("Armor Durability: " + player.getArmor().getDurabilityPercentage() + "%");
+        System.out.println("Coins: " + player.getCoins());
         System.out.println();
         System.out.println("Enter 1 To Attack.");
         System.out.println("Enter 2 To Use Your Ability: " + player.getAbilityName() + " (" + isAbilityAvailableStr() + ")");
@@ -82,14 +96,17 @@ public class Manager {
             if (!target.isAlive()) {
                 currentLocation.getEnemies().remove(target);
                 System.out.println("Congrats, This Location Is Clear.");
+
+                killReward(target);
+
                 changeLocation();
             }else {
                 enemyTurn();
             }
         }else if (choice == 2) {
             if (!isAbilityAvailable()) {
-                System.out.println("You Can't Use Your Ability At This Time!");
-                System.out.println();
+                System.out.println("You Can't Use Your Ability At This Time!\n");
+                wait(3000);
                 return;
             }
 
@@ -97,12 +114,17 @@ public class Manager {
             player.useAbility(target);
             abilityTurnCount = 0;
 
-            if (!target.isAlive()) {
-                currentLocation.getEnemies().remove(target);
-                System.out.println("Congrats, This Location Is Clear.");
-                changeLocation();
-            }else {
-                enemyTurn();
+            if (!(player instanceof Assassin || player instanceof Glitcher)) {
+                if (!target.isAlive()) {
+                    currentLocation.getEnemies().remove(target);
+                    System.out.println("Congrats, This Location Is Clear.");
+
+                    killReward(target);
+
+                    changeLocation();
+                } else {
+                    enemyTurn();
+                }
             }
         }else if (choice == 3) {
             changeLocation();
@@ -115,14 +137,30 @@ public class Manager {
         if (currentLocation.getEnemies().isEmpty()) {
             return;
         }
+        System.out.println(currentLocation.getEnemies().get(0) + " Attacking...");
+        wait(2000);
+
         int playerPreHp = player.getHp();
         currentLocation.getEnemies().get(0).attack(player);
         int damage = playerPreHp - player.getHp();
         System.out.println(currentLocation.getEnemies().get(0) + " Attacked You On Location " + currentLocation.getName() + "!");
-        System.out.println("You Took " + damage + " Damage");
-        System.out.println();
+        System.out.println("You Took " + damage + " Damage.\n");
+        wait(3000);
 
         abilityTurnCount++;
+    }
+
+    private static void enemySelfAttack() {
+        if (currentLocation.getEnemies().isEmpty()) {
+            return;
+        }
+        Entity target = currentLocation.getEnemies().get(0);
+        int enemyPreHp = target.getHp();
+        target.attack(target);
+        int damage = enemyPreHp - target.getHp();
+        System.out.println("The Glitched " + target + " Attacked Itself On Location " + currentLocation.getName() + ", Fool :)");
+        System.out.println(target + " Took " + damage + " Damage.");
+        wait(3000);
     }
 
     private static void changeLocation() {
@@ -135,6 +173,7 @@ public class Manager {
         }
         if (availableLocations == 0) {
             System.out.println("No Available Locations!\n");
+            wait(2000);
             return;
         }
 
@@ -150,6 +189,9 @@ public class Manager {
 
             choosedLocation = locations.get(getIntInput(1, locations.size()) - 1);
         }
+
+        System.out.println("Moving To New Location...");
+        wait(2000);
 
         currentLocation.isPlayerOn = false;
         choosedLocation.isPlayerOn = true;
@@ -233,6 +275,20 @@ public class Manager {
         return "Disable";
     }
 
+    private static void killReward(Entity target) {
+        int rewardCoins;
+        if (target instanceof Goblin) {
+            rewardCoins = 20;
+        } else if (target instanceof Skeleton) {
+            rewardCoins = 30;
+        } else {
+            rewardCoins = 50;
+        }
+        player.addCoins(rewardCoins);
+        System.out.println("You Earned " + rewardCoins + " Coins!\n");
+        wait(700);
+    }
+
     public static int getIntInput(int min, int max) {
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
@@ -241,5 +297,13 @@ public class Manager {
             choice = sc.nextInt();
         }
         return choice;
+    }
+
+    public static void wait(int milliSeconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -6,7 +6,7 @@ import org.project.object.weapons.Sword;
 public class Dragon extends Enemy {
 
     public Dragon() {
-        super(100, new Sword());
+        super(150, new Sword());
     }
 
     public void defend() {

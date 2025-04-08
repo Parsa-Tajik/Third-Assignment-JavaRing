@@ -1,5 +1,6 @@
 package org.project.entity.players;
 
+import org.project.Manager;
 import org.project.entity.Entity;
 import org.project.entity.enemies.Enemy;
 import org.project.object.armors.Armor;
@@ -35,11 +36,15 @@ public abstract class Player implements Entity {
 
     @Override
     public void attack(Entity target) {
+        System.out.println("Attacking " + target + "...");
+        Manager.wait(1500);
+
         int preHp = target.getHp();
         target.takeDamage(weapon.getDamage());
         System.out.println("You Attacked " + target);
         System.out.println(target + " Took " + (preHp - target.getHp()) + " Damage.");
         System.out.println();
+        Manager.wait(3000);
     }
 
     public abstract void useAbility(Enemy target);
@@ -84,6 +89,9 @@ public abstract class Player implements Entity {
     }
 
     public void changeWeapon(Weapon weapon) {
+        System.out.println("Changing Weapon To " + weapon.getName() + "...");
+        Manager.wait(2000);
+
         this.weapon = weapon;
     }
 
@@ -108,45 +116,62 @@ public abstract class Player implements Entity {
         for (Weapon we : weapons) {
             if (we.getName().equals(weapon.getName())) {
                 System.out.println("You Already Own " + weapon.getName() + "\n");
+                Manager.wait(3000);
                 return;
             }
         }
 
         if (weapon.getPrice() > coins) {
             System.out.println("Not Enough Coins To Buy " + weapon.getName() + "\n");
+            Manager.wait(3000);
             return;
         }
+
+        System.out.println("Buying " + weapon.getName() + "...");
+        Manager.wait(2000);
 
         coins -= weapon.getPrice();
         weapons.add(weapon);
         System.out.println(weapon.getName() + " Purchased Successfully.\n");
+        Manager.wait(3000);
     }
 
     public void buyConsumable(Consumable consumable) {
         if (consumable.getPrice() > coins) {
             System.out.println("Not Enough Coins To Buy " + consumable.getName() + "\n");
+            Manager.wait(3000);
             return;
         }
+
+        System.out.println("Buying " + consumable.getName() + "...");
+        Manager.wait(2000);
 
         coins -= consumable.getPrice();
         consumables.add(consumable);
         System.out.println(consumable.getName() + " Purchased Successfully.\n");
+        Manager.wait(3000);
     }
 
     public void repairArmor() {
         if (armor.getDurability() == armor.getMaxDurability()) {
             System.out.println("Your Armor Is Already Fully Repaired\n");
+            Manager.wait(3000);
             return;
         }
 
         if (armor.getRepairPrice() > coins) {
             System.out.println("Not Enough Coins To Repair Armor\n");
+            Manager.wait(3000);
             return;
         }
+
+        System.out.println("Repairing Armor...");
+        Manager.wait(2000);
 
         coins -= armor.getRepairPrice();
         armor.repair();
         System.out.println("Armor Repaired Successfully!\n");
+        Manager.wait(3000);
     }
 
     public int getCoins() {

@@ -1,5 +1,6 @@
 package org.project.entity.enemies;
 
+import org.project.Manager;
 import org.project.object.weapons.Weapon;
 import org.project.entity.Entity;
 
@@ -16,7 +17,12 @@ public abstract class Enemy implements Entity {
 
     public void attack(Entity target) {
         if (isGlitched) {
+            int enemyPreHp = getHp();
             this.takeDamage(getWeapon().getDamage());
+            int damage = enemyPreHp - getHp();
+            System.out.println("The Glitched " + this + " Attacked Itself, Fool :)");
+            System.out.println(this + " Took " + damage + " Damage.");
+            Manager.wait(3000);
             isGlitched = false;
             return;
         }

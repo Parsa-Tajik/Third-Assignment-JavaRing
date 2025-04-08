@@ -4,6 +4,8 @@ import org.project.entity.players.Player;
 import org.project.object.armors.Armor;
 import org.project.object.consumables.Consumable;
 import org.project.object.consumables.Flask;
+import org.project.object.consumables.Flask2;
+import org.project.object.consumables.Flask3;
 import org.project.object.weapons.Axe;
 import org.project.object.weapons.Weapon;
 
@@ -167,12 +169,20 @@ public class Inventory {
             System.out.println("**BUY CONSUMABLES**");
             System.out.println("* Coins: " + Manager.player.getCoins());
             System.out.println("1. Flask 20% (" + Flask.price() + " coins)");
+            System.out.println("2. Flask 50% (" + Flask2.price() + " coins)");
+            System.out.println("3. Flask 100% (" + Flask3.price() + " coins)");
             System.out.println("0. Return");
 
-            int choice = Manager.getIntInput(0, 1);
+            int choice = Manager.getIntInput(0, 3);
             switch (choice) {
                 case 1:
                     Manager.player.buyConsumable(new Flask());
+                    break;
+                case 2:
+                    Manager.player.buyConsumable(new Flask2());
+                    break;
+                case 3:
+                    Manager.player.buyConsumable(new Flask3());
                     break;
                 case 0:
                     exit = true;

@@ -6,7 +6,6 @@ import org.project.entity.enemies.Enemy;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class Wizard extends Player {
@@ -18,15 +17,11 @@ public class Wizard extends Player {
         System.out.println("You Are Healing And " + target + " Is Taking Damage...");
         target.takeDamage(20);
         Manager.player.heal(30);
-
-        try {
-            TimeUnit.SECONDS.sleep(3); // Waits for 3 seconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Manager.wait(3000);
 
         System.out.println("Done! You Healed By 30 And " + target + " Took 20 Damage.");
         System.out.println();
+        Manager.wait(3000);
     }
 
     public String getAbilityName() {

@@ -1,5 +1,6 @@
 package org.project.entity.enemies;
 
+import org.project.Manager;
 import org.project.entity.Entity;
 import org.project.object.weapons.Sword;
 
@@ -31,9 +32,13 @@ public class Skeleton extends Enemy {
     public boolean isAlive() {
         if (hp <= 0) {
             if (!isDeadOnce) {
+                System.out.println(toString() + " Is Being Revived...");
+                Manager.wait(2000);
+
                 isDeadOnce = true;
                 heal(50);
                 System.out.println("Skeleton Became A Revenant And Was Healed!");
+                Manager.wait(3000);
             }else{
                 return false;
             }

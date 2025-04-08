@@ -1,13 +1,11 @@
 package org.project.entity.enemies;
 
-import org.project.entity.Entity;
 import org.project.object.weapons.Sword;
 
 
-public class Skeleton extends Enemy {
-    public boolean isDeadOnce = false;
+public class Goblin extends Enemy {
 
-    public Skeleton() {
+    public Goblin() {
         super(100, new Sword());
     }
 
@@ -30,24 +28,18 @@ public class Skeleton extends Enemy {
     @Override
     public boolean isAlive() {
         if (hp <= 0) {
-            if (!isDeadOnce) {
-                isDeadOnce = true;
-                heal(50);
-                System.out.println("Skeleton Became A Revenant And Was Healed!");
-            }else{
-                return false;
-            }
+            return false;
         }
         return true;
     }
 
     public String getAbilityName() {
-        return "Resurrection";
+        return "No Ability";
     }
 
     public String toString()
     {
-        return "Skeleton💀" + " (" + this.getHp() + ")";
+        return "Goblin\uD83D\uDC79" + " (" + this.getHp() + ")";
     }
 
 }

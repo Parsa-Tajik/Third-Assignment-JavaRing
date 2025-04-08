@@ -1,7 +1,6 @@
 package org.project;
 
-import org.project.entity.players.Knight;
-import org.project.entity.players.Player;
+import org.project.entity.players.*;
 import org.project.object.armors.KnightArmor;
 import org.project.object.weapons.Sword;
 
@@ -42,10 +41,10 @@ public class Main {
         playerName = sc.next();
 
         System.out.println("OK " + playerName + ", now choose your HERO:");
-        System.out.println("1. Wizard (Special ability: Spell)");
-        System.out.println("2. Assassin (Special ability: Invisibility)");
-        System.out.println("3. Knight (Special ability: Strong Kick)");
-        System.out.println("4. The Glitcher (Special ability: Glitch)");
+        System.out.println("1. Wizard\uD83E\uDDD9\u200D♂\uFE0F (Special ability: Spell)");
+        System.out.println("2. Assassin\uD83D\uDDE1\uFE0F (Special ability: Invisibility)");
+        System.out.println("3. Knight⚔️ (Special ability: Strong Kick)");
+        System.out.println("4. The Glitcher👾 (Special ability: Glitch)");
         int heroChoice = sc.nextInt();
         while (heroChoice < 1 || heroChoice > 4) {
             System.out.println("Invalid option.");
@@ -55,20 +54,20 @@ public class Main {
         Player player;
         switch (heroChoice) {
             case 1:
-                player = new Knight(50, 100, new Sword(), new KnightArmor());
+                player = new Wizard(100, new Sword(), new KnightArmor());
                 break;
             case 2:
-                player = new Knight(100, 100, new Sword(), new KnightArmor());
+                player = new Assassin(100, new Sword(), new KnightArmor());
                 break;
             case 3:
-                player = new Knight(100, 100, new Sword(), new KnightArmor());
+                player = new Knight(100, new Sword(), new KnightArmor());
                 break;
             case 4:
-                player = new Knight(100, 100, new Sword(), new KnightArmor());
+                player = new Glitcher(100, new Sword(), new KnightArmor());
                 break;
 
             default:
-                player = new Knight(100, 100, new Sword(), new KnightArmor());
+                player = new Knight(100, new Sword(), new KnightArmor());
                 break;
         }
         Manager.player = player;

@@ -6,17 +6,38 @@ import org.project.entity.Entity;
 public abstract class Enemy implements Entity {
     Weapon weapon;
     protected int hp;
-    protected int mp;
 
-    public Enemy(int hp, int mp, Weapon weapon) {
+    private boolean isGlitched = false;
+
+    public Enemy(int hp, Weapon weapon) {
         this.hp = hp;
-        this.mp = mp;
-
         this.weapon = weapon;
+    }
+
+    public void attack(Entity target) {
+        if (isGlitched) {
+            this.takeDamage(getWeapon().getDamage());
+            isGlitched = false;
+            return;
+        }
+
+        if (this instanceof Dragon) {
+            target.takeDamageNoArmor(getWeapon().getDamage());
+            return;
+        }
+
+        target.takeDamage(getWeapon().getDamage());
     }
 
     @Override
     public void takeDamage(int damage) {
+        hp -= damage;
+        if (hp < 0) {
+            hp = 0;
+        }
+    }
+
+    public void takeDamageNoArmor(int damage) {
         hp -= damage;
         if (hp < 0) {
             hp = 0;
@@ -32,12 +53,12 @@ public abstract class Enemy implements Entity {
         return hp;
     }
 
-    public int getMp() {
-        return mp;
-    }
-
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void glitch() {
+        isGlitched = true;
     }
 
     public String toString() {

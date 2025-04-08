@@ -1,6 +1,7 @@
 package org.project.entity.players;
 
 import org.project.entity.Entity;
+import org.project.entity.enemies.Enemy;
 import org.project.object.armors.Armor;
 import org.project.object.weapons.Weapon;
 import org.project.object.consumables.Consumable;
@@ -13,19 +14,18 @@ public abstract class Player implements Entity {
     Armor armor;
     private int hp;
     private int maxHP;
-    private int mp;
-    private int maxMP;
 
     private int coins = 20000;
+
+    protected boolean isInvisible = false;
 
     public List<Weapon> weapons = new ArrayList<>();
     public List<Armor> armors = new ArrayList<>();
     public List<Consumable> consumables = new ArrayList<>();
 
-    public Player(int hp, int maxHp, int mp, Weapon weapon, Armor armor) {
+    public Player(int hp, int maxHp, Weapon weapon, Armor armor) {
         this.hp = hp;
         this.maxHP = maxHp;
-        this.mp = mp;
 
         this.weapon = weapon;
         weapons.add(weapon);
@@ -42,6 +42,8 @@ public abstract class Player implements Entity {
         System.out.println();
     }
 
+    public abstract void useAbility(Enemy target);
+
     @Override
     public void defend() {
 
@@ -54,15 +56,23 @@ public abstract class Player implements Entity {
 
     @Override
     public void takeDamage(int damage) {
-        int finalDamage;
-        if (hp >= 0) {
-            finalDamage = damage;
-        }else {
-            finalDamage = hp;
+        if (isInvisible) {
+            isInvisible = false;
+            return;
         }
 
-        hp -= finalDamage;
-        armor.use(this, finalDamage);
+        hp -= damage;
+        armor.use(this, damage);
+        if (hp <= 0) { hp = 0; }
+    }
+
+    public void takeDamageNoArmor(int damage) {
+        if (isInvisible) {
+            isInvisible = false;
+            return;
+        }
+        hp -= damage;
+        if (hp <= 0) { hp = 0; }
     }
 
     @Override
@@ -70,14 +80,6 @@ public abstract class Player implements Entity {
         hp += health;
         if (hp > maxHP) {
             hp = maxHP;
-        }
-    }
-
-    @Override
-    public void fillMana(int mana) {
-        mp += mana;
-        if (mp > maxMP) {
-            mp = maxMP;
         }
     }
 
@@ -92,15 +94,6 @@ public abstract class Player implements Entity {
     @Override
     public int getMaxHP() {
         return maxHP;
-    }
-
-    public int getMp() {
-        return mp;
-    }
-
-    @Override
-    public int getMaxMP() {
-        return maxMP;
     }
 
     public Weapon getWeapon() {
@@ -162,5 +155,9 @@ public abstract class Player implements Entity {
 
     public void addCoins(int coins) {
         this.coins += coins;
+    }
+
+    public boolean isInvisible() {
+        return isInvisible;
     }
 }

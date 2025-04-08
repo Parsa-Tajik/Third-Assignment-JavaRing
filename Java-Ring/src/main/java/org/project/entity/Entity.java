@@ -7,15 +7,15 @@ public interface Entity {
 
     void heal(int health);
 
-    void fillMana(int mana);
-
     boolean isAlive();
 
     void takeDamage(int damage);
+
+    void takeDamageNoArmor(int damage);
 
     int getHp();
 
     int getMaxHP();
 
-    int getMaxMP();
+    String getAbilityName();
 }

@@ -14,7 +14,7 @@ public abstract class Armor implements Object {
     public Armor(int maxDefense, int maxDurability, int repairPrice) {
         this.defense = maxDefense;
         this.maxDefence = maxDefense;
-        this.durability = 10;
+        this.durability = maxDurability;
         this.maxDurability = maxDurability;
         this.repairPrice = repairPrice;
     }

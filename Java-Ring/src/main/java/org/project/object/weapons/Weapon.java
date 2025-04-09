@@ -1,35 +1,33 @@
 package org.project.object.weapons;
 
 import org.project.entity.Entity;
+import org.project.object.Object;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Weapon {
+public abstract class Weapon implements Object {
+    private String name;
     private int damage;
-    private int manaCost;
+    private int price;
+    private int abilityPrice;
 
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS ATTRIBUTES
-    */
-
-    public Weapon(int damage, int manaCost) {
+    public Weapon(String name, int damage, int price, int abilityPrice) {
+        this.name = name;
         this.damage = damage;
-        this.manaCost = manaCost;
-    }
-
-    @Override
-    public void use(Entity target) {
-        target.takeDamage(damage);
+        this.price = price;
+        this.abilityPrice = abilityPrice;
     }
 
     public int getDamage() {
         return damage;
     }
-
-    public int getManaCost() {
-        return manaCost;
+    public int getAbilityCost() {
+        return abilityPrice;
     }
 
-    /*
-    TODO: ADD OTHER REQUIRED AND BONUS METHODS
-    */
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }

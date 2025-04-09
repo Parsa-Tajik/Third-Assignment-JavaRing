@@ -1,35 +1,73 @@
 package org.project.entity.enemies;
 
+import org.project.Manager;
 import org.project.object.weapons.Weapon;
+import org.project.entity.Entity;
 
-// TODO: UPDATE IMPLEMENTATION
-public abstract class Enemy {
+public abstract class Enemy implements Entity {
     Weapon weapon;
-    private int hp;
-    private int mp;
+    protected int hp;
 
-    public Enemy(int hp, int mp, Weapon weapon) {
+    private boolean isGlitched = false;
+
+    public Enemy(int hp, Weapon weapon) {
         this.hp = hp;
-        this.mp = mp;
-
         this.weapon = weapon;
     }
 
-    // TODO: (BONUS) UPDATE THE FORMULA OF TAKING DAMAGE
+    public void attack(Entity target) {
+        if (isGlitched) {
+            int enemyPreHp = getHp();
+            this.takeDamage(getWeapon().getDamage());
+            int damage = enemyPreHp - getHp();
+            System.out.println("The Glitched " + this + " Attacked Itself, Fool :)");
+            System.out.println(this + " Took " + damage + " Damage.");
+            Manager.wait(3000);
+            isGlitched = false;
+            return;
+        }
+
+        if (this instanceof Dragon) {
+            target.takeDamageNoArmor(getWeapon().getDamage());
+            return;
+        }
+
+        target.takeDamage(getWeapon().getDamage());
+    }
+
     @Override
     public void takeDamage(int damage) {
         hp -= damage;
+        if (hp < 0) {
+            hp = 0;
+        }
+    }
+
+    public void takeDamageNoArmor(int damage) {
+        hp -= damage;
+        if (hp < 0) {
+            hp = 0;
+        }
+    }
+
+    @Override
+    public boolean isAlive() {
+        return hp > 0;
     }
 
     public int getHp() {
         return hp;
     }
 
-    public int getMp() {
-        return mp;
-    }
-
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void glitch() {
+        isGlitched = true;
+    }
+
+    public String toString() {
+        return "Unknown Enemy!";
     }
 }
